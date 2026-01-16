@@ -1,7 +1,9 @@
 package com.example.listycity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     ListView cityList;
     ArrayAdapter<String> cityAdapter;
     ArrayList<String> datalist;
+    EditText inputText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +39,21 @@ public class MainActivity extends AppCompatActivity {
         datalist.addAll(Arrays.asList(cities));
         cityAdapter = new ArrayAdapter<>(this, R.layout.content, datalist);
         cityList.setAdapter(cityAdapter);
+        inputText = (EditText) findViewById(R.id.editTextText);
     }
+    public void addCity(View view) {
+        String city = inputText.getText().toString();
+        datalist.add(city); // could add data validation
+        cityAdapter.notifyDataSetChanged();
+        inputText.setText("");
+    }
+
+    public void removeCity(View view) {
+        String city = inputText.getText().toString();
+        boolean removed = datalist.remove(city);
+        cityAdapter.notifyDataSetChanged();
+        inputText.setText("");
+    }
+
+
 }
